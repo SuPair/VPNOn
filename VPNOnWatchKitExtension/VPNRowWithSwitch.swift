@@ -14,8 +14,8 @@ class VPNRowWithSwitch: VPNRow
     @IBOutlet weak var VPNSwitch: WKInterfaceSwitch!
     
     @IBAction func didTapVPNRow(value: Bool) {
-        var userInfo = [kVPNIndexKey: index]
-        var notificationName = value ? kDidTurnOnVPN : kDidTurnOffVPN
+        let userInfo = [kVPNIndexKey: index]
+        let notificationName = value ? kDidTurnOnVPN : kDidTurnOffVPN
         NSNotificationCenter.defaultCenter().postNotificationName(notificationName,
             object: nil,
             userInfo: userInfo)

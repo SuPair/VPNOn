@@ -15,7 +15,7 @@ let kAppGroupIdentifier = "group.VPNOn"
 final public class VPNManager
 {
     lazy var manager: NEVPNManager = {
-        return NEVPNManager.sharedManager()!
+        return NEVPNManager.sharedManager()
         }()
     
     lazy var defaults: NSUserDefaults = {
@@ -56,7 +56,7 @@ final public class VPNManager
                 instance.manager.loadFromPreferencesWithCompletionHandler {
                     (error: NSError!) -> Void in
                     if let err = error {
-                        debugPrintln("Failed to load preferences: \(err.localizedDescription)")
+                        debugPrint("Failed to load preferences: \(err.localizedDescription)")
                     }
                 }
                 instance.manager.localizedDescription = "VPN On"
@@ -109,7 +109,7 @@ final public class VPNManager
         configOnDemand()
         
 #if (arch(i386) || arch(x86_64)) && os(iOS) // #if TARGET_IPHONE_SIMULATOR for Swift
-        println("I'm afraid you can not connect VPN in simulators.")
+        print("I'm afraid you can not connect VPN in simulators.")
 #else
         manager.saveToPreferencesWithCompletionHandler {
             (error: NSError!) -> Void in
@@ -175,13 +175,18 @@ final public class VPNManager
         manager.saveToPreferencesWithCompletionHandler {
             (error: NSError!) -> Void in
             if let err = error {
-                debugPrintln("Failed to save profile: \(err.localizedDescription)")
+                debugPrint("Failed to save profile: \(err.localizedDescription)")
             } else {
                 var connectError : NSError?
-                if !self.manager.connection.startVPNTunnelAndReturnError(&connectError) {
+                do {
+                    try self.manager.connection.startVPNTunnelAndReturnError()
+                } catch var error as NSError {
+                    connectError = error
                     if let connectErr = connectError {
-                        debugPrintln("Failed to start IKEv2 tunnel: \(connectErr.localizedDescription)")
+                        debugPrint("Failed to start IKEv2 tunnel: \(connectErr.localizedDescription)")
                     }
+                } catch {
+                    fatalError()
                 }
             }
         }

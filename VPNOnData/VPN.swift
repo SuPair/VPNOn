@@ -17,7 +17,6 @@ public class VPNInfo {
     var countryCode:    String = ""
     var isp:            String = ""
     var ikev2:          Bool   = false
-    var certificateURL: String = ""
 }
 
 @objc(VPN)
@@ -35,7 +34,6 @@ public class VPN : NSManagedObject{
     @NSManaged var countryCode:    String?
     @NSManaged var isp:            String?
     @NSManaged var ikev2:          Bool
-    @NSManaged var certificateURL: String?
     
     var ID : String {
         if let id = objectID.URIRepresentation().absoluteString {
@@ -58,7 +56,6 @@ public class VPN : NSManagedObject{
         setValue(countryCode,    forKey: "countryCode")
         setValue(isp,            forKey: "isp")
         setValue(ikev2,          forKey: "ikev2")
-        setValue(certificateURL, forKey: "certificateURL")
     }
 
 	/**
@@ -113,7 +110,7 @@ public class VPN : NSManagedObject{
 	 */
 	func toDictionary() -> NSDictionary
 	{
-		var dictionary = NSMutableDictionary()
+		let dictionary = NSMutableDictionary()
         dictionary["ID"] = ID
 		if account != nil {
 			dictionary["account"] = account

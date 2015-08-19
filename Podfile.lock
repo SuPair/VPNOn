@@ -1,0 +1,106 @@
+PODS:
+  - KeychainAccess (1.2.1)
+  - Nimble (2.0.0-rc.2)
+  - OMGHTTPURLRQ (3.0.0):
+    - OMGHTTPURLRQ/RQ (= 3.0.0)
+  - OMGHTTPURLRQ/FormURLEncode (3.0.0)
+  - OMGHTTPURLRQ/RQ (3.0.0):
+    - OMGHTTPURLRQ/FormURLEncode
+    - OMGHTTPURLRQ/UserAgent
+  - OMGHTTPURLRQ/UserAgent (3.0.0)
+  - PromiseKit/CloudKit (3.0.0):
+    - PromiseKit/CorePromise
+  - PromiseKit/CoreLocation (3.0.0):
+    - PromiseKit/CorePromise
+  - PromiseKit/CorePromise (3.0.0)
+  - PromiseKit/Foundation (3.0.0):
+    - OMGHTTPURLRQ (~> 3.0.0)
+    - PromiseKit/CorePromise
+  - PromiseKit/MapKit (3.0.0):
+    - PromiseKit/CorePromise
+  - PromiseKit/Social (3.0.0):
+    - PromiseKit/CorePromise
+  - PromiseKit/StoreKit (3.0.0):
+    - PromiseKit/CorePromise
+  - PromiseKit/Swift/all (3.0.0):
+    - PromiseKit/Swift/CloudKit
+    - PromiseKit/Swift/CoreLocation
+    - PromiseKit/Swift/Foundation
+    - PromiseKit/Swift/MapKit
+    - PromiseKit/Swift/Social
+    - PromiseKit/Swift/StoreKit
+    - PromiseKit/Swift/UIKit
+  - PromiseKit/Swift/CloudKit (3.0.0):
+    - PromiseKit/CloudKit
+  - PromiseKit/Swift/CoreLocation (3.0.0):
+    - PromiseKit/CoreLocation
+  - PromiseKit/Swift/Foundation (3.0.0):
+    - PromiseKit/Foundation
+  - PromiseKit/Swift/MapKit (3.0.0):
+    - PromiseKit/MapKit
+  - PromiseKit/Swift/Social (3.0.0):
+    - PromiseKit/Social
+  - PromiseKit/Swift/StoreKit (3.0.0):
+    - PromiseKit/StoreKit
+  - PromiseKit/Swift/UIKit (3.0.0):
+    - PromiseKit/UIKit
+  - PromiseKit/UIKit (3.0.0):
+    - PromiseKit/CorePromise
+  - Quick (0.5.1)
+  - Reveal-iOS-SDK (1.5.1)
+  - SnapKit (0.13.0)
+  - SPLPing (1.1.6)
+  - Swifternalization (1.2)
+
+DEPENDENCIES:
+  - KeychainAccess (from `git@github.com:kishikawakatsumi/KeychainAccess.git`, branch
+    `swift-2.0`)
+  - Nimble (= 2.0.0-rc.2)
+  - PromiseKit/Swift/all (from `git@github.com:mxcl/PromiseKit.git`, branch `swift-2.0-beta5`)
+  - Quick (~> 0.5.0)
+  - Reveal-iOS-SDK
+  - SnapKit (from `git@github.com:SnapKit/SnapKit.git`, branch `swift-2.0`)
+  - SPLPing
+  - Swifternalization (from `git@github.com:tomkowz/Swifternalization.git`, branch
+    `swift2`)
+
+EXTERNAL SOURCES:
+  KeychainAccess:
+    :branch: swift-2.0
+    :git: git@github.com:kishikawakatsumi/KeychainAccess.git
+  PromiseKit:
+    :branch: swift-2.0-beta5
+    :git: git@github.com:mxcl/PromiseKit.git
+  SnapKit:
+    :branch: swift-2.0
+    :git: git@github.com:SnapKit/SnapKit.git
+  Swifternalization:
+    :branch: swift2
+    :git: git@github.com:tomkowz/Swifternalization.git
+
+CHECKOUT OPTIONS:
+  KeychainAccess:
+    :commit: 7879a49b81c553ad9b40cbafda34a881648e2ff3
+    :git: git@github.com:kishikawakatsumi/KeychainAccess.git
+  PromiseKit:
+    :commit: d1f27a1ef9f0d395b44c70add2391075f27f6e13
+    :git: git@github.com:mxcl/PromiseKit.git
+  SnapKit:
+    :commit: 4f19419528baa3dfaca20e26fea2be410ddc79e2
+    :git: git@github.com:SnapKit/SnapKit.git
+  Swifternalization:
+    :commit: e5d6f9c9432a5e5a66c953707050648a9d61b890
+    :git: git@github.com:tomkowz/Swifternalization.git
+
+SPEC CHECKSUMS:
+  KeychainAccess: 2ffa8b1b7130263bb7fe90b359d778696fc2d8ce
+  Nimble: e3cf5e73a491daf21c2bc88783dbfc55ce8b8e02
+  OMGHTTPURLRQ: 45cd892e5643206a5a359307621df7678625ebec
+  PromiseKit: a657c450a01f60137376a0210eb7b11f1aef8413
+  Quick: 7426537a99e75076d6930c5b6da58006e4a9f38a
+  Reveal-iOS-SDK: c9c55cad2729c85f6ced415f1b21857c9a2d8ef9
+  SnapKit: 69fe274c71511df89a5591c11437a8b826bfa9eb
+  SPLPing: aa94e6dcb07ec3c54d72b5999f1aebc7602f0d18
+  Swifternalization: 2f1aa7799b02f5fcb4f3d707a341ab1f871bf75c
+
+COCOAPODS: 0.38.2

@@ -8,7 +8,6 @@
 
 import UIKit
 import XCTest
-import VPNOnKit
 import CoreData
 
 class VPNOnTests: XCTestCase {

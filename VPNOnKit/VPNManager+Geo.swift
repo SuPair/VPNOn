@@ -32,9 +32,10 @@ extension VPNManager
             request.timeoutInterval = 10
             
             var response: NSURLResponse? = nil
-            if let data = NSURLConnection.sendSynchronousRequest(request, returningResponse: &response, error: nil) {
+            do {
+                let data = try NSURLConnection.sendSynchronousRequest(request, returningResponse: &response)
                 var parseError: NSError? = nil
-                let json = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &parseError) as! NSDictionary?
+                let json = NSJSONSerialization.JSONObjectWithData(data, options: []) as! NSDictionary?
                 if parseError == nil {
                     if let js = json {
                         let countryCode = js.valueForKey("country_code") as! String?
@@ -51,6 +52,7 @@ extension VPNManager
                         }
                     }
                 }
+            } catch _ {
             }
         }
         
@@ -61,7 +63,7 @@ extension VPNManager
     public func IPOfHost(host: String) -> String? {
         let host = CFHostCreateWithName(nil, host).takeRetainedValue()
         CFHostStartInfoResolution(host, .Addresses, nil)
-        var success: Boolean = 0
+        var success: DarwinBoolean = 0
         if let addressing = CFHostGetAddressing(host, &success) {
             let addresses = addressing.takeUnretainedValue() as NSArray
             if addresses.count > 0 {
