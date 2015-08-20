@@ -1,4 +1,5 @@
 PODS:
+  - AlecrimCoreData (3.2)
   - KeychainAccess (1.2.1)
   - Nimble (2.0.0-rc.2)
   - OMGHTTPURLRQ (3.0.0):
@@ -53,6 +54,7 @@ PODS:
   - Swifternalization (1.2)
 
 DEPENDENCIES:
+  - AlecrimCoreData (from `git@github.com:Alecrim/AlecrimCoreData.git`, branch `feature/swift_2`)
   - KeychainAccess (from `git@github.com:kishikawakatsumi/KeychainAccess.git`, branch
     `swift-2.0`)
   - Nimble (= 2.0.0-rc.2)
@@ -65,6 +67,9 @@ DEPENDENCIES:
     `swift2`)
 
 EXTERNAL SOURCES:
+  AlecrimCoreData:
+    :branch: feature/swift_2
+    :git: git@github.com:Alecrim/AlecrimCoreData.git
   KeychainAccess:
     :branch: swift-2.0
     :git: git@github.com:kishikawakatsumi/KeychainAccess.git
@@ -79,6 +84,9 @@ EXTERNAL SOURCES:
     :git: git@github.com:tomkowz/Swifternalization.git
 
 CHECKOUT OPTIONS:
+  AlecrimCoreData:
+    :commit: f4485bfff7d6f14cb0061e128ed46ed5b36fb255
+    :git: git@github.com:Alecrim/AlecrimCoreData.git
   KeychainAccess:
     :commit: 7879a49b81c553ad9b40cbafda34a881648e2ff3
     :git: git@github.com:kishikawakatsumi/KeychainAccess.git
@@ -93,6 +101,7 @@ CHECKOUT OPTIONS:
     :git: git@github.com:tomkowz/Swifternalization.git
 
 SPEC CHECKSUMS:
+  AlecrimCoreData: 94bb712b014c9cdeefa70e9ed31305baf472a334
   KeychainAccess: 2ffa8b1b7130263bb7fe90b359d778696fc2d8ce
   Nimble: e3cf5e73a491daf21c2bc88783dbfc55ce8b8e02
   OMGHTTPURLRQ: 45cd892e5643206a5a359307621df7678625ebec

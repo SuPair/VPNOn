@@ -21,6 +21,12 @@ def import_security
     :branch => 'swift-2.0'
 end
 
+def import_db
+  pod 'AlecrimCoreData',
+    :git    => 'git@github.com:Alecrim/AlecrimCoreData.git',
+    :branch => 'feature/swift_2'
+end
+
 def import_ui
   pod 'SnapKit',
     :git    => 'git@github.com:SnapKit/SnapKit.git',
@@ -43,6 +49,7 @@ target 'VPNOn' do
   import_i18n
   import_networking
   import_security
+  import_db
 end
 
 target 'VPNOnTests' do
@@ -57,19 +64,11 @@ end
 
 target 'VPNOnKit' do
   import_security
+  import_db
 end
 
 target 'VPNOnKitTests' do
   import_testing
   import_security
-end
-
-target 'VPNOnWatchKitExtension' do
-  platform :watchos, '2.0'
-  import_security
-end
-
-target 'VPNOnWatchKitApp' do
-  platform :watchos, '2.0'
-  import_security
+  import_db
 end
