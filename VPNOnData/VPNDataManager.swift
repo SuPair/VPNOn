@@ -27,7 +27,7 @@ class VPNDataManager
     
     private lazy var _oldDataDirectory: NSURL = {
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        let url = urls[urls.count-1] as! NSURL
+        let url = urls[urls.count-1] 
         return url
     }()
     
@@ -58,18 +58,25 @@ class VPNDataManager
         
         var error: NSError? = nil
         if let store = coordinator!.persistentStoreForURL(url) { }
-        else if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: options as [NSObject : AnyObject] as [NSObject : AnyObject], error: &error) == nil {
-            coordinator = nil
-            // Report any error we got.
-            let dict = NSMutableDictionary()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-            dict[NSLocalizedFailureReasonErrorKey] = failureReason
-            dict[NSUnderlyingErrorKey] = error
-            error = NSError(domain: "com.LexTang.VPNOn", code: 9999, userInfo: dict as [NSObject : AnyObject])
-            // Replace this with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog("Unresolved error \(error), \(error!.userInfo)")
-            abort()
+        else {
+            do {
+                try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: options as! [NSObject : AnyObject] as [NSObject : AnyObject])
+            } catch var error1 as NSError {
+                error = error1
+                coordinator = nil
+                // Report any error we got.
+                let dict = NSMutableDictionary()
+                dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
+                dict[NSLocalizedFailureReasonErrorKey] = failureReason
+                dict[NSUnderlyingErrorKey] = error
+                error = NSError(domain: "com.LexTang.VPNOn", code: 9999, userInfo: dict as [NSObject : AnyObject])
+                // Replace this with code to handle the error appropriately.
+                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                NSLog("Unresolved error \(error), \(error!.userInfo)")
+                abort()
+            } catch {
+                fatalError()
+            }
         }
         
         return coordinator
@@ -105,17 +112,25 @@ class VPNDataManager
             forKeys: [NSMigratePersistentStoresAutomaticallyOption, NSInferMappingModelAutomaticallyOption, "journal_mode"])
         
         var srcError: NSError?
-        if coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: srcURL, options: options as [NSObject : AnyObject] as [NSObject : AnyObject], error: &srcError) == nil {
-            debugPrintln("Failed to add src store: \(srcError)")
+        do {
+            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: srcURL, options: options as! [NSObject : AnyObject] as [NSObject : AnyObject])
+        } catch var error as NSError {
+            srcError = error
+            debugPrint("Failed to add src store: \(srcError)")
             return
         }
         
         if let oldStore = coordinator.persistentStoreForURL(srcURL) {
             var migrationError: NSError?
-            if coordinator.migratePersistentStore(oldStore, toURL: dstURL, options: options as [NSObject : AnyObject], withType: NSSQLiteStoreType, error: &migrationError) == nil {
-                debugPrintln("Failed to migrate CoreData: \(migrationError)")
-            } else {
-                NSFileManager.defaultManager().removeItemAtPath(srcURL.path!, error: nil)
+            do {
+                try coordinator.migratePersistentStore(oldStore, toURL: dstURL, options: options as! [NSObject : AnyObject], withType: NSSQLiteStoreType)
+                do {
+                    try NSFileManager.defaultManager().removeItemAtPath(srcURL.path!)
+                } catch _ {
+                }
+            } catch var error as NSError {
+                migrationError = error
+                debugPrint("Failed to migrate CoreData: \(migrationError)")
             }
         }
     }
@@ -125,11 +140,16 @@ class VPNDataManager
     func saveContext () {
         if let moc = self.managedObjectContext {
             var error: NSError? = nil
-            if moc.hasChanges && !moc.save(&error) {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                NSLog("Unresolved error \(error), \(error!.userInfo)")
-                abort()
+            if moc.hasChanges {
+                do {
+                    try moc.save()
+                } catch let error1 as NSError {
+                    error = error1
+                    // Replace this implementation with code to handle the error appropriately.
+                    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    NSLog("Unresolved error \(error), \(error!.userInfo)")
+                    abort()
+                }
             }
         }
     }

@@ -113,7 +113,7 @@ public class VPN : NSManagedObject{
 	 */
 	func toDictionary() -> NSDictionary
 	{
-		var dictionary = NSMutableDictionary()
+		let dictionary = NSMutableDictionary()
         dictionary["ID"] = ID
 		if account != nil {
 			dictionary["account"] = account

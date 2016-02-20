@@ -160,7 +160,10 @@ public class Wormhole: NSObject {
         
         if let filePath = filePathForIdentifier(identifier) {
             let fileManager = NSFileManager.defaultManager()
-            fileManager.removeItemAtPath(filePath, error: nil)
+            do {
+                try fileManager.removeItemAtPath(filePath)
+            } catch _ {
+            }
         }
     }
     
@@ -170,11 +173,14 @@ public class Wormhole: NSObject {
             
             let fileManager = NSFileManager.defaultManager()
             
-            if let fileNames = fileManager.contentsOfDirectoryAtPath(directoryPath, error: nil) as? [String] {
+            if let fileNames = (try? fileManager.contentsOfDirectoryAtPath(directoryPath)) as? [String] {
                 
                 for fileName in fileNames {
-                    let filePath = directoryPath.stringByAppendingPathComponent(fileName)
-                    fileManager.removeItemAtPath(filePath, error: nil)
+                    let filePath = (directoryPath as NSString).stringByAppendingPathComponent(fileName)
+                    do {
+                        try fileManager.removeItemAtPath(filePath)
+                    } catch _ {
+                    }
                 }
             }
         }
@@ -190,7 +196,7 @@ public class Wormhole: NSObject {
         
         if let directoryPath = messagePassingDirectoryPath() {
             let fileName = identifier + ".archive"
-            let filePath = directoryPath.stringByAppendingPathComponent(fileName)
+            let filePath = (directoryPath as NSString).stringByAppendingPathComponent(fileName)
             
             return filePath
         }
@@ -205,9 +211,12 @@ public class Wormhole: NSObject {
         if let
             appGroupContainer = fileManager.containerURLForSecurityApplicationGroupIdentifier(self.appGroupIdentifier),
             appGroupContainerPath = appGroupContainer.path {
-                let directoryPath = appGroupContainerPath.stringByAppendingPathComponent(messageDirectoryName)
+                let directoryPath = (appGroupContainerPath as NSString).stringByAppendingPathComponent(messageDirectoryName)
                 
-                fileManager.createDirectoryAtPath(directoryPath, withIntermediateDirectories: true, attributes: nil, error: nil)
+                do {
+                    try fileManager.createDirectoryAtPath(directoryPath, withIntermediateDirectories: true, attributes: nil)
+                } catch _ {
+                }
                 
                 return directoryPath
         }

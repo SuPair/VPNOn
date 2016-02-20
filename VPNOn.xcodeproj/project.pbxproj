@@ -833,6 +833,8 @@
 		D7453F211A31966F00F7E32D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0720;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = LexTang.com;
 				TargetAttributes = {
